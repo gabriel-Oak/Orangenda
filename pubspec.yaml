@@ -17,6 +17,8 @@ dependencies:
   bloc: ^6.0.1
   flutter_bloc: ^6.0.1
   path_provider: ^1.6.11
+  mask_text_input_formatter: ^1.0.7
+  equatable: ^1.2.3
 
 dev_dependencies:
   flutter_test:

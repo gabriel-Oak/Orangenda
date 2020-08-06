@@ -1,8 +1,8 @@
-import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_agenda/helpers/contact_helper.dart';
 
 class HomeState {
-  bool loading = false;
+  final bool loading;
   final List<Contact> contactList;
 
   HomeState({@required this.contactList, this.loading = false});

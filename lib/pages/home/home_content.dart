@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_agenda/helpers/contact_helper.dart';
+import 'package:flutter_agenda/pages/contact/contact_page.dart';
 import 'package:flutter_agenda/pages/home/bloc.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -84,8 +85,19 @@ class HomeContent extends StatelessWidget {
       ),
       floatingActionButton: FloatingActionButton(
         child: Icon(Icons.add),
-        onPressed: () {},
+        onPressed: () => _navigateToContact(context),
       ),
     );
+  }
+
+  Future _navigateToContact(BuildContext context, {Contact contact}) async {
+    final bool contactSaved = await Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => ContactPage(contact: contact),
+      ),
+    );
+
+    if (contactSaved) context.bloc<HomeBloc>().add(GetContacts());
   }
 }
