@@ -8,5 +8,9 @@ String isEmail(String email) {
       : null;
 }
 
-String isPhone(String phone) =>
-    phone.length < 14 || phone.length > 15 ? 'Este número não é valido' : null;
+String isPhone(String phone) {
+  if (phone == null || phone.isEmpty) return null;
+  return phone.length < 14 || phone.length > 15
+      ? 'Este número não é valido'
+      : null;
+}

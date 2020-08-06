@@ -6,14 +6,20 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 class ContactPage extends StatelessWidget {
   final Contact contact;
+  final ContactHelper repository;
 
-  ContactPage({@required this.contact});
+  ContactPage({@required this.repository, this.contact});
 
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => ContactBloc(),
-      child: ContactContent(),
+      create: (context) => ContactBloc(
+        repository: repository,
+        contact: contact,
+      ),
+      child: ContactContent(
+        nameController: TextEditingController(text: contact.name),
+      ),
     );
   }
 }

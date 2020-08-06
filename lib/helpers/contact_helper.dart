@@ -33,10 +33,9 @@ class ContactHelper {
     });
   }
 
-  Future<Contact> saveContact(Contact contact) async {
+  Future<int> saveContact(Contact contact) async {
     Database database = await db;
-    contact.id = await database.insert(contactTable, contact.toMap());
-    return contact;
+    return await database.insert(contactTable, contact.toMap());
   }
 
   Future<Contact> getContact(int id) async {
@@ -99,6 +98,8 @@ class Contact {
   String email;
   String phone;
   String img;
+
+  Contact();
 
   Contact.fromMap(Map map) {
     id = map[idColumn];

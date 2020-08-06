@@ -7,6 +7,9 @@ import 'package:flutter_agenda/pages/home/bloc.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class HomeContent extends StatelessWidget {
+  final ContactHelper repository;
+  HomeContent({@required this.repository});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -85,16 +88,19 @@ class HomeContent extends StatelessWidget {
       ),
       floatingActionButton: FloatingActionButton(
         child: Icon(Icons.add),
-        onPressed: () => _navigateToContact(context),
+        onPressed: () => _navigateToContact(context, Contact()),
       ),
     );
   }
 
-  Future _navigateToContact(BuildContext context, {Contact contact}) async {
+  Future _navigateToContact(BuildContext context, Contact contact) async {
     final bool contactSaved = await Navigator.push(
       context,
       MaterialPageRoute(
-        builder: (context) => ContactPage(contact: contact),
+        builder: (context) => ContactPage(
+          repository: repository,
+          contact: contact,
+        ),
       ),
     );
 
