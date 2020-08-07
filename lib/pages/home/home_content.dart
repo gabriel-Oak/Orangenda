@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_agenda/helpers/contact_helper.dart';
 import 'package:flutter_agenda/pages/contact/contact_page.dart';
 import 'package:flutter_agenda/pages/home/bloc.dart';
+import 'package:flutter_agenda/pages/home/home_tile.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class HomeContent extends StatelessWidget {
@@ -17,9 +18,22 @@ class HomeContent extends StatelessWidget {
         title: Text('Contatos'),
         centerTitle: true,
         actions: <Widget>[
-          IconButton(
-            icon: Icon(Icons.more_vert),
-            onPressed: () {},
+          PopupMenuButton(
+            onSelected: (order) =>
+                context.bloc<HomeBloc>().add(OrderList(order)),
+            tooltip: 'Ordenar contatos',
+            itemBuilder: (BuildContext context) {
+              return [
+                PopupMenuItem(
+                  value: OrderOptions.asc,
+                  child: Text('A - Z'),
+                ),
+                PopupMenuItem(
+                  value: OrderOptions.desc,
+                  child: Text('Z - A'),
+                ),
+              ];
+            },
           ),
         ],
       ),
@@ -29,64 +43,11 @@ class HomeContent extends StatelessWidget {
 
           return ListView.builder(
             itemCount: state.contactList.length,
-            itemBuilder: (context, index) {
-              Contact contact = state.contactList[index];
-
-              return GestureDetector(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.stretch,
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: <Widget>[
-                    Container(
-                      padding: EdgeInsets.all(16),
-                      child: Row(
-                        children: <Widget>[
-                          CircleAvatar(
-                            backgroundColor: Colors.grey,
-                            child: contact.img == null
-                                ? Text(
-                                    contact.name[0].toUpperCase(),
-                                    style: TextStyle(
-                                      color: Colors.white,
-                                      fontSize: 24,
-                                    ),
-                                  )
-                                : ClipRRect(
-                                    borderRadius: BorderRadius.circular(32),
-                                    child: Image(
-                                      image: FileImage(File(contact.img)),
-                                      fit: BoxFit.cover,
-                                      width: 64,
-                                      height: 64,
-                                    ),
-                                  ),
-                            radius: 32,
-                          ),
-                          Padding(
-                            padding: EdgeInsets.only(left: 16),
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: <Widget>[
-                                Text(
-                                  contact.name,
-                                  style: TextStyle(fontSize: 22),
-                                ),
-                                Text(contact.phone),
-                              ],
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                    Container(
-                      color: Colors.grey,
-                      height: 1,
-                    ),
-                  ],
-                ),
-                onTap: () {},
-              );
-            },
+            itemBuilder: (context, index) => HomeTile(
+              contact: state.contactList[index],
+              bloc: context.bloc<HomeBloc>(),
+              onEditContact: _navigateToContact,
+            ),
           );
         },
       ),

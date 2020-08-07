@@ -7,6 +7,13 @@ class HomeState {
 
   HomeState({@required this.contactList, this.loading = false});
 
+  HomeState evolute({loading, contactList}) {
+    return HomeState(
+      contactList: contactList ?? this.contactList,
+      loading: loading ?? this.loading,
+    );
+  }
+
   @override
   String toString() {
     return 'Home State(loading: $loading, ${contactList.toString()})';
