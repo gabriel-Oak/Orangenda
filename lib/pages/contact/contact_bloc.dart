@@ -13,7 +13,11 @@ class ContactBloc extends Bloc<ContactEvent, ContactState> {
   @override
   Stream<ContactState> mapEventToState(ContactEvent event) async* {
     if (event is ChangeNameContact) {
-      yield state.evolute(name: event.name);
+      final Contact contact = state.contact.copyWith(name: event.name);
+      yield state.evolute(contact: contact);
+    } else if (event is PickImageContact) {
+      final Contact contact = state.contact.copyWith(img: event.imagePath);
+      yield state.evolute(contact: contact);
     } else if (event is SaveContact) {
       yield state.evolute(saving: true);
 
@@ -35,6 +39,7 @@ class ContactBloc extends Bloc<ContactEvent, ContactState> {
 
           Scaffold.of(event.context).removeCurrentSnackBar();
           Scaffold.of(event.context).showSnackBar(snack);
+          Navigator.pop(event.context, true);
         }
       } catch (e) {
         yield state.evolute(saving: false);

@@ -13,3 +13,8 @@ class ChangeNameContact extends ContactEvent {
   final String name;
   ChangeNameContact(this.name);
 }
+
+class PickImageContact extends ContactEvent {
+  final String imagePath;
+  PickImageContact(this.imagePath);
+}

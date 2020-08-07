@@ -1,3 +1,4 @@
+import 'package:equatable/equatable.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:path/path.dart';
 
@@ -92,14 +93,16 @@ class ContactHelper {
   }
 }
 
-class Contact {
+class Contact extends Equatable {
   int id;
   String name;
   String email;
   String phone;
   String img;
 
-  Contact();
+  Contact() {
+    name = '';
+  }
 
   Contact.fromMap(Map map) {
     id = map[idColumn];
@@ -119,8 +122,18 @@ class Contact {
     };
   }
 
+  Contact copyWith({id, name, phone, email, img}) => Contact.fromMap({
+        idColumn: id ?? this.id,
+        nameColumn: name ?? this.name,
+        phoneColumn: phone ?? this.phone,
+        emailColumn: email ?? this.email,
+        imgColumn: img ?? this.img,
+      });
+
   @override
   String toString() {
     return 'Contact:(id: $id, name: $name, phone: $phone, email: $email, img> $img)';
   }
+
+  List<Object> get props => [id, name, phone, email, img];
 }

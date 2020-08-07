@@ -9,7 +9,6 @@ class ContactPage extends StatelessWidget {
   final ContactHelper repository;
 
   ContactPage({@required this.repository, this.contact});
-
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
@@ -18,7 +17,9 @@ class ContactPage extends StatelessWidget {
         contact: contact,
       ),
       child: ContactContent(
-        nameController: TextEditingController(text: contact.name),
+        nameController: TextEditingController(text: contact.name ?? ''),
+        phoneController: TextEditingController(text: contact.phone ?? ''),
+        emailController: TextEditingController(text: contact.email ?? ''),
       ),
     );
   }

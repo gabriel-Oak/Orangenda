@@ -35,6 +35,7 @@ class HomeContent extends StatelessWidget {
               return GestureDetector(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.stretch,
+                  mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
                     Container(
                       padding: EdgeInsets.all(16),
@@ -54,9 +55,12 @@ class HomeContent extends StatelessWidget {
                                     borderRadius: BorderRadius.circular(32),
                                     child: Image(
                                       image: FileImage(File(contact.img)),
+                                      fit: BoxFit.cover,
+                                      width: 64,
+                                      height: 64,
                                     ),
                                   ),
-                            radius: 27,
+                            radius: 32,
                           ),
                           Padding(
                             padding: EdgeInsets.only(left: 16),
@@ -65,7 +69,7 @@ class HomeContent extends StatelessWidget {
                               children: <Widget>[
                                 Text(
                                   contact.name,
-                                  style: TextStyle(fontSize: 24),
+                                  style: TextStyle(fontSize: 22),
                                 ),
                                 Text(contact.phone),
                               ],
@@ -104,6 +108,7 @@ class HomeContent extends StatelessWidget {
       ),
     );
 
+    if (contactSaved == null) return;
     if (contactSaved) context.bloc<HomeBloc>().add(GetContacts());
   }
 }

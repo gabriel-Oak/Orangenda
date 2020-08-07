@@ -1,11 +1,10 @@
 String isEmail(String email) {
+  if (email.isNotEmpty || email != null) return null;
+
   String p =
       r'^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$';
   RegExp regExp = new RegExp(p);
-
-  return email.isNotEmpty && regExp.hasMatch(email)
-      ? 'Insira um email valido!'
-      : null;
+  return regExp.hasMatch(email) ? null : 'Insira um email valido!';
 }
 
 String isPhone(String phone) {
@@ -14,3 +13,6 @@ String isPhone(String phone) {
       ? 'Este número não é valido'
       : null;
 }
+
+String isName(String name) =>
+    name == null || name.length < 2 ? 'Digite um nome!' : null;
