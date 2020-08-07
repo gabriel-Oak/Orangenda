@@ -41,14 +41,18 @@ class HomeContent extends StatelessWidget {
         builder: (context, state) {
           if (state.loading) return Center(child: CircularProgressIndicator());
 
-          return ListView.builder(
-            itemCount: state.contactList.length,
-            itemBuilder: (context, index) => HomeTile(
-              contact: state.contactList[index],
-              bloc: context.bloc<HomeBloc>(),
-              onEditContact: _navigateToContact,
-            ),
-          );
+          return state.contactList.length == 0
+              ? Center(
+                  child: Text('Não há nada para exibir aqui :)'),
+                )
+              : ListView.builder(
+                  itemCount: state.contactList.length,
+                  itemBuilder: (context, index) => HomeTile(
+                    contact: state.contactList[index],
+                    bloc: context.bloc<HomeBloc>(),
+                    onEditContact: _navigateToContact,
+                  ),
+                );
         },
       ),
       floatingActionButton: FloatingActionButton(
