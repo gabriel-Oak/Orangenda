@@ -110,7 +110,7 @@ class ContactContent extends StatelessWidget {
     final bool res = await showDialog(
       context: context,
       builder: (context) => AlertDialog(
-        title: Text('Tem certesa?'),
+        title: Text('Tem certeza?'),
         content: Text(
             'Ao executar essa ação você perderá todos os dados não salvos!'),
         actions: <Widget>[
